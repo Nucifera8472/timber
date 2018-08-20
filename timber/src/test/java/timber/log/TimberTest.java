@@ -380,6 +380,20 @@ public class TimberTest {
         .hasNoMoreMessages();
   }
 
+  @Test public void userPropertySet() {
+
+    final String testKey = "testKey";
+    final String testValue = "testValue";
+
+    Timber.plant(new Timber.DebugTree());
+    Timber.setUserProperty(testKey, testValue);
+
+    assertLog()
+            .hasVerboseMessage("TimberTest", "User property set: [" + testKey + "] - ["+
+                    testValue + "]")
+            .hasNoMoreMessages();
+  }
+
   @Test public void logMessageCallback() {
     final List<String> logs = new ArrayList<>();
     Timber.plant(new Timber.DebugTree() {

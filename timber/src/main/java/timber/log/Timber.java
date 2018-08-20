@@ -128,6 +128,11 @@ public final class Timber {
     TREE_OF_SOULS.track(event);
   }
 
+  /** Track an event */
+  public static void setUserProperty(@NonNls String key, String value) {
+    TREE_OF_SOULS.setUserProperty(key, value);
+  }
+
   /**
    * A view into Timber's planted trees as a tree itself. This can be used for injecting a logger
    * instance rather than using static methods or to facilitate testing.
@@ -375,6 +380,13 @@ public final class Timber {
       }
     }
 
+    @Override public void setUserProperty(@NotNull String key, String value){
+      Tree[] forest = forestAsArray;
+      for (Tree tree : forest) {
+        tree.setUserProperty(key, value);
+      }
+    }
+
     @Override protected void log(int priority, String tag, @NotNull String message, Throwable t) {
       throw new AssertionError("Missing override for log method.");
     }
@@ -578,6 +590,14 @@ public final class Timber {
      * @param event Event to be tracked
      */
     protected abstract void track(@NotNull Event event);
+
+    /**
+     * Set a user property key value pair inside this tracker
+     *
+     * @param key property key
+     * @param value property value
+     */
+    protected abstract void setUserProperty(@NotNull String key, String value);
   }
 
   /** A {@link Tree Tree} for debug builds. Automatically infers the tag from the calling class. */
@@ -662,6 +682,12 @@ public final class Timber {
     @Override
     protected void track(@NotNull Event event) {
       String message = String.format("Event tracked: %s", event);
+      log(Log.VERBOSE, getTagForTrack(), message, null);
+    }
+
+    @Override
+    protected void setUserProperty(@NotNull String key, String value) {
+      String message = String.format("User property set: [%s] - [%s]", key, value);
       log(Log.VERBOSE, getTagForTrack(), message, null);
     }
 
