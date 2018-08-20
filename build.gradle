@@ -6,7 +6,7 @@ buildscript {
       'minSdk': 9,
       'compileSdk': 27,
 
-      'kotlin': '1.2.31',
+      'kotlin': '1.2.60',
 
       'androidPlugin': '3.1.1',
       'androidTools': '26.1.1',
@@ -43,7 +43,7 @@ buildscript {
     classpath deps.androidPlugin
     classpath deps.kotlinPlugin
     classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
-      classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
 
