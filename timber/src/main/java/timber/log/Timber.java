@@ -78,7 +78,11 @@ public final class Timber {
     TREE_OF_SOULS.w(t);
   }
 
-  /** Log an error message with optional format args. */
+  /**
+   * Log an error message with optional format args.
+   * @deprecated Do not log a Warning without a Throwable, otherwise Crashlytics cannot display the correct line of error! Use {@link #e(Throwable, String)} instead.
+   */
+  @Deprecated
   public static void e(@NonNls String message, Object... args) {
     TREE_OF_SOULS.e(message, args);
   }
